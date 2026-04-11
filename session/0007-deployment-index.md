@@ -26,6 +26,7 @@
 | 0008 | `0008-decision-filename-sequencing.md` | 為何加入流水號命名系統 |
 | 0009 | `0009-step-start-ollama-container.md` | 啟動 Ollama 容器與 API 驗證 |
 | 0010 | `0010-step-pull-gemma4-e4b.md` | 下載 `gemma4:e4b` 並確認模型已註冊 |
+| 0011 | `0011-step-basic-inference-test.md` | 基本推論測試與 GPU offload 結果 |
 
 ## 目前狀態
 
@@ -40,4 +41,4 @@
 | Docker GPU runtime 驗證 | 完成 |
 | Ollama 安裝 | 完成 |
 | 模型拉取 | 完成 |
-| 推論測試 | 尚未開始 |
+| 推論測試 | 完成 |
