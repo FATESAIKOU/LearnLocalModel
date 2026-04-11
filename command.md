@@ -1,35 +1,25 @@
-# Step 4-2 — Practical Prompt Test
+# Check current service state
+docker ps --filter name=ollama
+curl http://localhost:11434/api/tags
+docker exec ollama ollama list
 
-## Input
+# Ensure Gemma 4 E4B is present
+docker exec ollama ollama pull gemma4:e4b
 
-| Item | Value |
-|---|---|
-| Deployment option | A: Ollama (Docker) |
-| Current status | Basic inference test passed |
-
-## Process
-
-Run the commands below in order.
-
-```bash
+# Test with Gemma 4 E4B
+MODEL=gemma4:e4b
 curl http://localhost:11434/api/generate \
   -H "Content-Type: application/json" \
-  -d '{
-    "model": "gemma4:e4b",
-    "prompt": "Please answer in Traditional Chinese. Explain in exactly 3 bullet points what Docker, Ollama, and Gemma 4 each do in this deployment.",
-    "stream": false
-  }'
+  -d "{\"model\":\"${MODEL}\",\"prompt\":\"Please answer in Traditional Chinese. Use exactly 3 bullet points to explain what Docker, Ollama, and Gemma 4 do in this deployment.\",\"stream\":false}"
 
-docker logs --tail 50 ollama
-```
+# Pull Gemma 4 26B when you want to switch
+docker exec ollama ollama pull gemma4:26b
 
-## Output
+# Switch to Gemma 4 26B
+MODEL=gemma4:26b
+curl http://localhost:11434/api/generate \
+  -H "Content-Type: application/json" \
+  -d "{\"model\":\"${MODEL}\",\"prompt\":\"Please answer in Traditional Chinese. Use exactly 3 bullet points to explain what Docker, Ollama, and Gemma 4 do in this deployment.\",\"stream\":false}"
 
-| Check item | Expected result |
-|---|---|
-| `curl http://localhost:11434/api/generate ...` | Returns JSON and the `response` field contains a meaningful Traditional Chinese answer |
-| `docker logs --tail 50 ollama` | Shows the model request was handled without startup errors |
-
-## Action
-
-Paste the full command output back to the chat, then reply `REVIEWED`.
+# Show recent Ollama logs
+docker logs --tail 100 ollama
