@@ -32,6 +32,7 @@
 | 0014 | `0014-decision-chat-via-ollama-cli-in-container.md` | 採用容器內 Ollama CLI 作為互動 chat 入口 |
 | 0015 | `0015-decision-prioritize-run-commands-in-command-file.md` | 把 `ollama run` 指令移到 `command.md` 最前面 |
 | 0016 | `0016-decision-command-file-start-with-docker-run.md` | `command.md` 改回先 `docker run` 再 `docker exec` |
+| 0017 | `0017-step-aider-phase1-goals-and-constraints.md` | Aider 階段一：目標、架構與每階段 session 規則 |
 
 ## 目前狀態
 
