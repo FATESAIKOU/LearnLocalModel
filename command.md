@@ -1,6 +1,3 @@
-sudo apt update
-sudo apt install -y python3 python3-pip git
+python3 -m pip install --user -U aider-chat
 
-python3 --version
-python3 -m pip --version
-git --version
+aider --version || ~/.local/bin/aider --version
