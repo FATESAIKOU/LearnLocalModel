@@ -215,8 +215,12 @@ model "<name>" is not accessible via the /chat/completions endpoint
 /drop path/to/file
 /ls
 /diff
+/run <shell-command>
+/test <shell-command>
 /commit
 /model <model-name>
+/chat-mode code
+/chat-mode ask
 /help
 /exit
 ```
@@ -253,6 +257,67 @@ aider --model ollama_chat/gemma4:e4b
 
 ```text
 /model ollama_chat/gemma4:e4b
+```
+
+### 3-3. Aider 的工作模式要點
+
+Aider **不是**像某些 agent CLI 那樣內建完整的 `read / write / bash` 工具系統。它的核心能力比較偏向：
+
+| 類型 | Aider 行為 |
+|---|---|
+| 讀寫檔案 | 主要針對已加入聊天的檔案進行編輯 |
+| Shell 指令 | 可用 `/run`、`/test` 執行命令，但不是完整代理式 bash 工具 |
+| 多步自主操作 | 預設較弱，不會像全代理模式那樣自己規劃一整串動作 |
+| 預設模式 | 通常是 `code` mode，但仍需要明確上下文與目標檔案 |
+
+如果你直接說：
+
+```text
+請幫我寫一個 ToDo Web App
+```
+
+它很可能只會：
+
+1. 直接在畫面上吐方案或程式碼
+2. 要你先 `/add` 相關檔案
+3. 或要求你先確認要建立哪些檔案
+
+這不一定是壞掉，而是因為 Aider 比較偏向「在既有 repo 內編輯檔案」。
+
+### 3-4. 想讓 Aider 真的動手改檔，建議這樣下
+
+先把目標檔案加進去：
+
+```text
+/add package.json
+/add src/App.tsx
+/add src/main.tsx
+```
+
+如果檔案還不存在，可以直接明講要建立：
+
+```text
+/chat-mode code
+請建立一個最小可運行的 ToDo Web App。
+需求：
+1. 建立需要的新檔案。
+2. 不要只貼程式碼在聊天裡。
+3. 直接修改 repo 內檔案。
+4. 完成後告訴我有哪些檔案被建立或修改。
+```
+
+如果你想先討論方案，再讓它動手：
+
+```text
+/chat-mode ask
+請先規劃這個 ToDo Web App 需要哪些檔案與技術。
+```
+
+確認後再切回：
+
+```text
+/chat-mode code
+照剛剛的方案直接實作。
 ```
 
 ## 4. 常見問題與排錯
@@ -329,7 +394,25 @@ set +a
 echo "$OLLAMA_API_BASE"
 ```
 
-### 問題 4：`aider` 指令找不到
+### 問題 4：Aider 只把程式碼吐在畫面上，沒有真的改檔
+
+**常見原因**
+- 沒有先 `/add` 目標檔案
+- 請求太大、太抽象，例如直接叫它「做一個完整 Web App」
+- 目前不在 `code` mode
+- 模型本身偏弱，比較傾向輸出說明而不是穩定產生 edits
+
+**解法**
+1. 先 `/add` 目標檔案，或明講要建立哪些新檔
+2. 明確指定「直接修改檔案，不要只貼程式碼在聊天裡」
+3. 先用 `/chat-mode ask` 討論，再切 `/chat-mode code`
+4. 必要時換更強模型，例如：
+
+```text
+/model openai/gpt-4o
+```
+
+### 問題 5：`aider` 指令找不到
 
 **解法**
 
