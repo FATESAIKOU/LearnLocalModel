@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 
-app = Flask(__rmode__)
+app = Flask(__name__)
 CORS(app)
 
 # In-memory database for demonstration purposes
@@ -55,5 +55,5 @@ def delete_todo(todo_id):
     todos = [t for t in todos if t['id'] != todo_id]
     return jsonify({"result": True})
 
-if __name__ == '__main:__
+if __name__ == '__main__':
     app.run(debug=True, port=5000)
