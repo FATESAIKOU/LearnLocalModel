@@ -1,3 +1,4 @@
-python3 -m pip install --user -U aider-chat
-
-aider --version || ~/.local/bin/aider --version
+pwd
+git rev-parse --show-toplevel
+git rev-parse --is-inside-work-tree
+git --no-pager status --short

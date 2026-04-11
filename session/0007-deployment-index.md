@@ -38,6 +38,7 @@
 | 0020 | `0020-step-create-gemma4-readme.md` | 建立 Gemma 4 安裝與啟動 README |
 | 0021 | `0021-decision-build-preloaded-ollama-image.md` | 改用預載 `e4b` 與 `26b` 的自訂 Ollama image |
 | 0022 | `0022-step-aider-phase3-install-aider.md` | Aider 階段三：安裝 aider-chat |
+| 0023 | `0023-step-aider-phase3-project-git-check.md` | Aider 階段三：確認目標專案與 Git 狀態 |
 
 ## 目前狀態
 
