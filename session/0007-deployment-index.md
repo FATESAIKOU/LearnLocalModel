@@ -33,6 +33,10 @@
 | 0015 | `0015-decision-prioritize-run-commands-in-command-file.md` | 把 `ollama run` 指令移到 `command.md` 最前面 |
 | 0016 | `0016-decision-command-file-start-with-docker-run.md` | `command.md` 改回先 `docker run` 再 `docker exec` |
 | 0017 | `0017-step-aider-phase1-goals-and-constraints.md` | Aider 階段一：目標、架構與每階段 session 規則 |
+| 0018 | `0018-step-aider-phase2-dependencies-and-validation.md` | Aider 階段二：依賴與驗證清單 |
+| 0019 | `0019-step-aider-phase3-system-bootstrap.md` | Aider 階段三：系統基礎環境安裝 |
+| 0020 | `0020-step-create-gemma4-readme.md` | 建立 Gemma 4 安裝與啟動 README |
+| 0021 | `0021-decision-build-preloaded-ollama-image.md` | 改用預載 `e4b` 與 `26b` 的自訂 Ollama image |
 
 ## 目前狀態
 
