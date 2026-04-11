@@ -140,7 +140,7 @@ set +a
 aider --model openai/gpt-4o
 ```
 
-> `openai/gpt-4o` 只是範例。實際可用模型取決於你的 Copilot 訂閱。
+> 先用 `openai/gpt-4o` 當範例。**不要直接把 Copilot CLI 看到的模型名稱原樣拿來給 Aider**；實際可用模型必須以 `https://api.githubcopilot.com/models` 回傳結果為準。
 
 ### 2-3. 查詢 Copilot 可用模型
 
@@ -162,6 +162,14 @@ curl -s https://api.githubcopilot.com/models \
 aider --model openai/gpt-4o
 aider --model openai/claude-3.7-sonnet-thought
 ```
+
+如果某個模型在 Aider 中報：
+
+```text
+model "<name>" is not accessible via the /chat/completions endpoint
+```
+
+代表它不是這個端點目前可用的 chat model，請改用 `/models` 回傳中真正存在的模型 ID。
 
 ### 2-4. 把檔案加入上下文
 
@@ -263,7 +271,38 @@ aider --model ollama_chat/gemma4:e4b
 2. 重新執行 `.env` 建立步驟，把新 token 寫回 `.env`
 3. 重新 `source .env`
 
-### 問題 2：本地 Ollama 連不上
+### 問題 2：模型名稱錯誤，Aider 提示 not accessible via /chat/completions
+
+**症狀**
+- 例如：`model "gpt-5.4-mini" is not accessible via the /chat/completions endpoint`
+
+**常見原因**
+- 直接把 Copilot CLI 或其他工具中的模型名稱拿來給 Aider
+- 該模型不在 Copilot OpenAI-compatible `/models` 清單中
+
+**解法**
+1. 先查模型清單：
+
+```bash
+cd /home/fatesaikou/testAI/LearnLocalModel
+set -a
+source .env
+set +a
+
+curl -s https://api.githubcopilot.com/models \
+  -H "Authorization: Bearer $OPENAI_API_KEY" \
+  -H "Content-Type: application/json" \
+  -H "Copilot-Integration-Id: vscode-chat"
+```
+
+2. 從回傳結果挑一個實際存在的 ID
+3. 用 `openai/<id>` 啟動 Aider，例如：
+
+```bash
+aider --model openai/gpt-4o
+```
+
+### 問題 3：本地 Ollama 連不上
 
 **症狀**
 - `aider --model ollama_chat/gemma4:e4b` 無法連線
@@ -290,7 +329,7 @@ set +a
 echo "$OLLAMA_API_BASE"
 ```
 
-### 問題 3：`aider` 指令找不到
+### 問題 4：`aider` 指令找不到
 
 **解法**
 
