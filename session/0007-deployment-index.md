@@ -27,6 +27,7 @@
 | 0009 | `0009-step-start-ollama-container.md` | 啟動 Ollama 容器與 API 驗證 |
 | 0010 | `0010-step-pull-gemma4-e4b.md` | 下載 `gemma4:e4b` 並確認模型已註冊 |
 | 0011 | `0011-step-basic-inference-test.md` | 基本推論測試與 GPU offload 結果 |
+| 0012 | `0012-step-practical-prompt-test.md` | 實際問答測試與回應品質確認 |
 
 ## 目前狀態
 
