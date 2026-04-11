@@ -17,6 +17,16 @@
 | Token 來源 | 直接從 `~/.config/github-copilot/apps.json` 讀取 |
 | 安全原則 | 驗證時不印出 token 明文 |
 
-## 狀態
+## 執行結果
 
-等待使用者執行 `.env` 建立與驗證指令並回報結果。
+| 項目 | 結果 |
+|---|---|
+| Token 來源 | `~/.config/github-copilot/apps.json` |
+| `.env` 建立 | 完成 |
+| `OLLAMA_API_BASE` | 已設定為 `http://127.0.0.1:11434` |
+| `OPENAI_API_BASE` | 已設定為 `https://api.githubcopilot.com` |
+| `OPENAI_API_KEY` | 已寫入 `.env`，且驗證時未明文輸出 |
+
+## 結論
+
+`.env` 已完成，Aider 階段三的四個子步驟均已完成，可進入最終說明文件產出。

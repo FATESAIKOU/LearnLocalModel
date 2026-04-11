@@ -40,6 +40,7 @@
 | 0022 | `0022-step-aider-phase3-install-aider.md` | Aider 階段三：安裝 aider-chat |
 | 0023 | `0023-step-aider-phase3-project-git-check.md` | Aider 階段三：確認目標專案與 Git 狀態 |
 | 0024 | `0024-step-aider-phase3-create-env.md` | Aider 階段三：建立 .env 並配置模型 API |
+| 0025 | `0025-step-aider-phase4-final-guide.md` | Aider 階段四：產出最終使用說明 |
 
 ## 目前狀態
 
