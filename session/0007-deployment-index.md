@@ -24,6 +24,8 @@
 | 0006 | `0006-decision-reporting-structure.md` | 為何改成每個決策一個檔案放在 `./session/` |
 | 0007 | `0007-deployment-index.md` | 索引與目前狀態 |
 | 0008 | `0008-decision-filename-sequencing.md` | 為何加入流水號命名系統 |
+| 0009 | `0009-step-start-ollama-container.md` | 啟動 Ollama 容器與 API 驗證 |
+| 0010 | `0010-step-pull-gemma4-e4b.md` | 下載 `gemma4:e4b` 並確認模型已註冊 |
 
 ## 目前狀態
 
@@ -35,6 +37,7 @@
 | 部署方案選擇 | 完成 |
 | 報告規則調整 | 完成 |
 | 檔名流水號規則 | 完成 |
-| Docker GPU runtime 驗證 | 進行中 |
-| Ollama 安裝 | 尚未開始 |
-| 模型拉取與測試 | 尚未開始 |
+| Docker GPU runtime 驗證 | 完成 |
+| Ollama 安裝 | 完成 |
+| 模型拉取 | 完成 |
+| 推論測試 | 尚未開始 |

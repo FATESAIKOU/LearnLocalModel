@@ -1,35 +1,25 @@
-# Step 3-2 — Start Ollama Container
+# Step 4-1 — Basic Inference Test
 
 ## Input
 
 | Item | Value |
 |---|---|
 | Deployment option | A: Ollama (Docker) |
-| Current status | Docker GPU runtime verified |
+| Current status | `gemma4:e4b` is installed in Ollama |
 
 ## Process
 
 Run the commands below in order.
 
 ```bash
-docker volume create ollama
+curl http://localhost:11434/api/generate \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "gemma4:e4b",
+    "prompt": "Reply with exactly one line: GEMMA4_E4B_OK",
+    "stream": false
+  }'
 
-docker run -d \
-  --name ollama \
-  --restart unless-stopped \
-  --gpus all \
-  -p 11434:11434 \
-  -v ollama:/root/.ollama \
-  ollama/ollama:latest
-
-docker ps --filter name=ollama
-
-curl http://localhost:11434/api/tags
-```
-
-If the last command does not return JSON yet, run:
-
-```bash
 docker logs --tail 50 ollama
 ```
 
@@ -37,10 +27,8 @@ docker logs --tail 50 ollama
 
 | Check item | Expected result |
 |---|---|
-| `docker run -d ...` | Returns a container ID |
-| `docker ps --filter name=ollama` | Shows `ollama` in `Up` status |
-| `curl http://localhost:11434/api/tags` | Returns JSON with a `models` field |
-| `docker logs --tail 50 ollama` | Shows service startup logs |
+| `curl http://localhost:11434/api/generate ...` | Returns JSON and the `response` field contains `GEMMA4_E4B_OK` |
+| `docker logs --tail 50 ollama` | Shows the model request was handled without startup errors |
 
 ## Action
 
