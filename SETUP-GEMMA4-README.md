@@ -55,22 +55,20 @@ docker run --rm --gpus all ubuntu:22.04 nvidia-smi
 docker build -t local/ollama-gemma4:latest -<<'EOF'
 FROM ollama/ollama:latest
 
-RUN /bin/sh -c '\
-    ollama serve >/tmp/ollama-build.log 2>&1 & \
-    pid=$!; \
-    i=0; \
-    until ollama list >/dev/null 2>&1; do \
-      i=$((i+1)); \
-      if [ "$i" -ge 60 ]; then \
-        cat /tmp/ollama-build.log; \
-        exit 1; \
-      fi; \
-      sleep 1; \
-    done; \
+RUN ollama serve >/dev/null 2>&1 & pid=$! ; \
+    while ! ollama list >/dev/null 2>&1; do sleep 1; done ; \
     ollama pull gemma4:e4b && \
+    kill $pid && wait $pid || true
+
+RUN ollama serve >/dev/null 2>&1 & pid=$! ; \
+    while ! ollama list >/dev/null 2>&1; do sleep 1; done ; \
     ollama pull gemma4:26b && \
-    kill $pid && \
-    wait $pid || true'
+    kill $pid && wait $pid || true
+
+RUN ollama serve >/dev/null 2>&1 & pid=$! ; \
+    while ! ollama list >/dev/null 2>&1; do sleep 1; done ; \
+    ollama pull gemma4:31b && \
+    kill $pid && wait $pid || true
 EOF
 ```
 
